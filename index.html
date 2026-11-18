@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <!-- 版本號：上載前一定要改（WEB-07）；改咗題庫檔（bank-*.js）都要改 -->
-<script>window.__SR_VER='2026.11.18-2';</script>
+<script>window.__SR_VER='2026.11.18-3';</script>
 <style>
 :root{
   --ink:#3a2a5c; --ink2:#6b5a8a; --card:#ffffff; --line:#eadff7;
@@ -150,8 +150,7 @@ h1,h2,h3{margin:0 0 8px}
 .qtip{font-size:15px;font-weight:800;color:var(--pur-d);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .spk{margin-left:auto;background:#f1ecff;border-radius:12px;padding:6px 10px;font-size:16px;font-weight:800;flex:none;color:var(--pur-d)}
 .qtext{font-size:23px;line-height:1.75;font-weight:700;letter-spacing:.5px}
-.rc{cursor:pointer;border-radius:5px;transition:background .2s}
-.rc.rd{background:#ffe082}
+.rc{cursor:pointer;border-radius:5px}
 .blank{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--pur);text-align:center;color:var(--pur-d);padding:0 4px;margin:0 2px}
 .blank.fill-ok{color:var(--ok-d);border-color:var(--ok)}
 .blank.fill-bad{color:var(--bad-d);border-color:var(--bad)}
@@ -341,6 +340,109 @@ h1,h2,h3{margin:0 0 8px}
 .pk .pe svg{width:100%;height:100%;overflow:visible}
 .pk.on{outline:4px solid var(--pri);background:#fff1e8}
 .pk small{display:block;font-size:13px;color:var(--ink2);font-weight:700}
+
+/* ===== 第三版：讀字高亮、特效 ===== */
+.rc{display:inline-block;transition:transform .14s,color .14s;transform-origin:50% 85%}
+.rc.on{color:#ff2f74;transform:scale(1.42) translateY(-2px);text-shadow:0 3px 0 rgba(255,47,116,.18)}
+.rc.done{color:#7b5cff}
+.opt .rc.done{color:var(--pur-d)}
+.rb{position:relative}
+.cr-anim .cr-b{animation:breathe 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.cr-anim .cr-eyes{animation:blink 4.6s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.03,.97)}}
+@keyframes blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}97%{transform:scaleY(1)}}
+.monsvg{width:100%;height:100%;overflow:visible}
+.monsvg .mon-b{animation:monw 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.monsvg .mon-eyes{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes monw{0%,100%{transform:scale(1,1) rotate(0)}30%{transform:scale(1.05,.95) rotate(-2deg)}70%{transform:scale(.97,1.03) rotate(2deg)}}
+.mon .me{height:58px;display:flex;justify-content:center}
+.mon .me svg{width:58px;height:58px}
+.arena .femo svg{width:92px;height:92px}
+.arena .femo.boss{font-size:72px;animation:monw 2s ease-in-out infinite}
+.monbadge{width:36px;height:36px;top:-10px;right:-12px}
+.monbadge svg{width:100%;height:100%}
+.bmons{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.bmon{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center}
+.hpw{position:relative}
+.hpw b{position:absolute;left:0;top:0;bottom:0;background:#ff8a8a;border-radius:9px;transition:width .6s}
+.hpw i{position:relative;z-index:1}
+.pks{display:flex;flex-wrap:wrap;gap:7px;align-items:center;line-height:1.6}
+.ptk{background:#f7f3ff;border-radius:10px;padding:5px 9px;font-size:22px;font-weight:800;box-shadow:0 3px 0 #ddd0f3;border-bottom:4px solid transparent;transition:transform .1s}
+.ptk:active{transform:translateY(2px)}
+.ptk.on2{background:#fff1e8;border-bottom-color:var(--pri);box-shadow:0 3px 0 #f2b38f}
+.ptk.good{background:#dff7ea;border-bottom-color:var(--ok);box-shadow:0 3px 0 #9fdcbc}
+.ptk.bad{background:#ffe1e6;border-bottom-color:var(--bad)}
+.ptk.dim{opacity:.55}
+.ppun{font-size:22px;font-weight:800}
+.weak.exmb{color:var(--pur-d)}
+.tile.exam{width:100%;background:linear-gradient(135deg,#fff1b8,#ffd6e6);box-shadow:0 5px 0 #e8b86a;overflow:hidden}
+.tile.exam .ic{font-size:40px;animation:bob 2.2s ease-in-out infinite}
+.bigmap,.tile.exam{position:relative;overflow:hidden}
+.bigmap::after,.tile.exam::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:shine 3.4s ease-in-out infinite;pointer-events:none}
+@keyframes shine{0%,55%{transform:translateX(0)}100%{transform:translateX(420%)}}
+#view.vin > *{animation:vin .38s cubic-bezier(.2,.8,.3,1) both}
+#view.vin > *:nth-child(2){animation-delay:.05s}#view.vin > *:nth-child(3){animation-delay:.1s}#view.vin > *:nth-child(4){animation-delay:.15s}#view.vin > *:nth-child(5){animation-delay:.2s}#view.vin > *:nth-child(n+6){animation-delay:.25s}
+#view.vin .grid > *{animation:pin .45s cubic-bezier(.2,1.5,.4,1) both}
+#view.vin .grid > *:nth-child(2){animation-delay:.06s}#view.vin .grid > *:nth-child(3){animation-delay:.12s}#view.vin .grid > *:nth-child(4){animation-delay:.18s}#view.vin .grid > *:nth-child(5){animation-delay:.24s}#view.vin .grid > *:nth-child(6){animation-delay:.3s}#view.vin .grid > *:nth-child(7){animation-delay:.36s}
+#view.vin .isle{animation:pin .45s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes vin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pin{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+.stage .petwrap{position:relative;z-index:1}
+.amb{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.amb i{position:absolute;display:block;font-style:normal}
+.amb-cloud{width:70px;height:22px;background:rgba(255,255,255,.85);border-radius:20px;animation:drift linear infinite}
+.amb-cloud:before{content:"";position:absolute;width:30px;height:30px;border-radius:50%;background:inherit;left:12px;top:-14px}
+@keyframes drift{from{transform:translateX(-160px)}to{transform:translateX(560px)}}
+.amb-tw{width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;animation:tw ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.4)}}
+.amb-bub{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.85);animation:rise linear infinite}
+.amb-heart{font-size:15px;animation:rise linear infinite}
+.amb-leafy{font-size:16px;animation:fall2 linear infinite}
+@keyframes rise{0%{transform:translateY(60px);opacity:0}20%{opacity:1}100%{transform:translateY(-170px);opacity:0}}
+@keyframes fall2{0%{transform:translate(0,-60px) rotate(0);opacity:0}20%{opacity:1}100%{transform:translate(40px,170px) rotate(260deg);opacity:0}}
+#fxl{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.fxp{position:fixed;pointer-events:none;will-change:transform,opacity}
+.fx-dot{border-radius:50%}
+.fx-leaf{background:#5fc24f;border-radius:0 70% 0 70%}
+.fx-ring{width:20px;height:20px;border:4px solid #fff;border-radius:50%}
+.fx-flash{position:fixed;inset:0;pointer-events:none;opacity:0}
+.fx-txt{font-size:24px;font-weight:900;color:#fff;white-space:nowrap;text-shadow:2px 2px 0 #c92f4b,-2px 2px 0 #c92f4b,2px -2px 0 #c92f4b,-2px -2px 0 #c92f4b,0 3px 0 #c92f4b,3px 0 0 #c92f4b,-3px 0 0 #c92f4b,0 -3px 0 #c92f4b}
+.fx-txt.crit{font-size:32px;color:#ffe14a}
+.fx-banner{background:linear-gradient(135deg,#ff7a45,#ff4f6d);color:#fff;font-size:30px;font-weight:900;padding:10px 26px;border-radius:999px;box-shadow:0 6px 0 rgba(0,0,0,.18),0 0 30px rgba(255,122,69,.6);white-space:nowrap}
+.fx-proj{border-radius:50%}
+.fx-fireball{background:radial-gradient(circle,#fff6a8 0 20%,#ffb300 45%,#ff3d00 72%,transparent 74%);box-shadow:0 0 18px 8px rgba(255,106,42,.7)}
+.fx-ember{background:#ffb300;box-shadow:0 0 8px 3px rgba(255,80,0,.7)}
+.fx-bubble{border:3px solid #fff;background:rgba(60,198,232,.45);box-shadow:inset -3px -3px 0 rgba(255,255,255,.6)}
+.fx-proj.fx-leaf{border-radius:0 70% 0 70%}
+.fx-psyring{border:5px solid #c77dff;box-shadow:0 0 14px 4px rgba(199,125,255,.7)}
+.fx-aurasphere{background:radial-gradient(circle,#fff 0 22%,#8fdcff 45%,#2f7fe0 72%,transparent 74%);box-shadow:0 0 22px 10px rgba(90,184,255,.8)}
+.fx-dust{background:radial-gradient(circle,#fff,#e8d9b0 60%,transparent 70%)}
+.fx-darkorb{background:radial-gradient(circle,#b9a0ff 0 20%,#5a3f8a 55%,#2d1b5e 78%,transparent 80%);box-shadow:0 0 14px 5px rgba(90,63,138,.7)}
+.fx-bolt{position:fixed;left:0;top:0;pointer-events:none;z-index:71}
+.fx-ov{position:fixed;inset:0;z-index:65;background:radial-gradient(circle at 50% 42%,#4a2fa8 0%,#1d1046 72%);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;overflow:hidden}
+.fx-ov.on{opacity:1}
+.fx-ov.cap{background:radial-gradient(circle at 50% 42%,#2a7fd0 0%,#0d2b52 75%)}
+.fx-ov.leg{background:radial-gradient(circle at 50% 40%,#6b4fd8 0%,#140b33 72%)}
+.fx-rays{position:absolute;width:160vmax;height:160vmax;left:50%;top:42%;margin:-80vmax 0 0 -80vmax;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.13) 0 9deg,transparent 9deg 18deg);animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fx-stage{position:relative;width:220px;height:220px}
+.fx-cr{position:absolute;inset:0}
+.fx-cr svg{width:100%;height:100%;overflow:visible}
+.fx-cr.hide{opacity:0}
+.fx-cr.glow svg{filter:brightness(0) invert(1) drop-shadow(0 0 18px #fff)}
+.fx-cr.reveal{animation:revealp .8s cubic-bezier(.2,1.6,.4,1)}
+@keyframes revealp{0%{transform:scale(.3)}100%{transform:scale(1)}}
+.fx-cr.sil svg{filter:brightness(0) drop-shadow(0 0 22px #c77dff)}
+.fx-cr.suck{animation:suck .7s ease-in forwards}
+@keyframes suck{to{transform:translateY(80px) scale(.05);opacity:0}}
+.fx-bottle{position:absolute;left:50%;bottom:-30px;width:100px;height:120px;margin-left:-50px;animation:pin .5s cubic-bezier(.2,1.6,.4,1) both;transform-origin:50% 100%}
+.fx-bottle svg{width:100%;height:100%}
+.fx-bottle.wob{animation:bwob .5s ease-in-out}
+@keyframes bwob{0%,100%{transform:rotate(0)}25%{transform:rotate(-16deg)}75%{transform:rotate(16deg)}}
+.fx-bottle.done svg{filter:drop-shadow(0 0 18px #ffe14a)}
+.fx-cap{position:relative;color:#fff;font-size:22px;font-weight:900;margin-top:46px;text-align:center;padding:0 20px;text-shadow:0 2px 0 rgba(0,0,0,.4);min-height:60px;line-height:1.5}
+.fx-go{position:relative;margin-top:10px;background:#ffd23f;color:#5a3a00;border-radius:18px;padding:14px 34px;font-size:20px;font-weight:900;box-shadow:0 5px 0 #c98f00;opacity:0;pointer-events:none;transition:opacity .3s}
+.fx-go.on{opacity:1;pointer-events:auto;animation:bob 1.6s ease-in-out infinite}
 </style>
 <script>
 /* 題庫用嘅寫法（bank-*.js 會用） */
@@ -355,10 +457,12 @@ window.QH = (function(){
   const O = (w, x) => Object.assign({t:'order', w}, x||{});
   const PA = (w, e, x) => Object.assign({t:'order', w, para:true, e}, x||{});
   const MT = (kind, pairs, x) => Object.assign({t:'match', kind, pairs}, x||{});
-  return {M, QT, P, T, O, PA, MT};
+  const PK = (w, a, x) => Object.assign({t:'pick', w, a}, x||{});
+  return {M, QT, P, T, O, PA, MT, PK};
 })();
 /* 科目題庫檔：加新科目就喺度加名（例如 'eng' 會讀 bank-eng.js） */
-window.__SR_FILES = ['chi'];
+window.__SR_FILES = ['chi', 'chi-11'];
+document.write('<script src="fx.js?v=' + window.__SR_VER + '"><\/script>');
 window.__SR_FILES.forEach(f => document.write('<script src="bank-' + f + '.js?v=' + window.__SR_VER + '"><\/script>'));
 </script>
 </head>
@@ -385,7 +489,7 @@ const today = () => dstr(new Date());
 function addDays(s, n){ const d = new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return dstr(d); }
 // 每個中文字變成撳得嘅字（撳一下讀出嚟）
 const CJK = /[㐀-鿿豈-﫿]/;
-function rt(s){ return Array.from(String(s)).map(c => c === '\n' ? '<br>' : CJK.test(c) ? `<span class="rc" data-act="rc">${c}</span>` : esc(c)).join(''); }
+function rt(s, tap){ const a = tap === false ? '' : ' data-act="rc"'; return Array.from(String(s)).map(c => c === '\n' ? '<br>' : CJK.test(c) ? `<span class="rc"${a}>${c}</span>` : esc(c)).join(''); }
 
 /* ========== 科目同題庫 ========== */
 const SUBJECTS = [
@@ -528,13 +632,13 @@ function drawCreature(sp, st, flip){
   const arms = st ? `<ellipse cx="${hx-brx+3}" cy="${by-bry*.2}" rx="9" ry="15" transform="rotate(28 ${hx-brx+3} ${by-bry*.2})" fill="${c.b}" ${sw}/><ellipse cx="${hx+brx-3}" cy="${by-bry*.2}" rx="9" ry="15" transform="rotate(-28 ${hx+brx-3} ${by-bry*.2})" fill="${c.b}" ${sw}/>` : '';
   const head = `<circle cx="${hx}" cy="${hy}" r="${hr}" fill="${c.b}" ${sw}/>`;
   const eye = x => `<ellipse cx="${x}" cy="${ey}" rx="${erx}" ry="${ery}" fill="${c.e}"/><circle cx="${x+2.6}" cy="${ey-ery*.4}" r="3.4" fill="#fff"/><circle cx="${x-2.4}" cy="${ey+ery*.4}" r="1.6" fill="#fff"/>`;
-  let face = eye(hx-ex) + eye(hx+ex);
+  let face = '<g class="cr-eyes">' + eye(hx-ex) + eye(hx+ex) + '</g>';
   if(st === 2) face += `<path d="M${hx-ex-11},${ey-ery-5} L${hx-ex+7},${ey-ery-1}" stroke="${c.d}" stroke-width="4" stroke-linecap="round"/><path d="M${hx+ex+11},${ey-ery-5} L${hx+ex-7},${ey-ery-1}" stroke="${c.d}" stroke-width="4" stroke-linecap="round"/>`;
   else face += `<ellipse cx="${hx-ex-5}" cy="${ey+ery+4}" rx="7" ry="4.5" fill="#ff8fb8" opacity=".55"/><ellipse cx="${hx+ex+5}" cy="${ey+ery+4}" rx="7" ry="4.5" fill="#ff8fb8" opacity=".55"/>`;
   const mouth = `<path d="M${hx-6},${my} Q${hx-3},${my+4} ${hx},${my} Q${hx+3},${my+4} ${hx+6},${my}" stroke="${c.d}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
   const shadow = `<ellipse cx="100" cy="${fl ? 192 : 186}" rx="${fl ? brx-8 : brx+8}" ry="${fl ? 5 : 7}" fill="rgba(0,0,0,.15)"/>`;
   const defs = st === 2 ? `<defs><radialGradient id="${id}"><stop offset="0" stop-color="${D.orb}" stop-opacity=".5"/><stop offset="1" stop-color="${D.orb}" stop-opacity="0"/></radialGradient></defs>` : '';
-  let inner = back + feet + body + bodyx + arms + ears + head + headx + face + mouth + front;
+  let inner = '<g class="cr-b">' + back + feet + body + bodyx + arms + ears + head + headx + face + mouth + front + '</g>';
   if(fl) inner = `<g transform="translate(0 -10)">${inner}</g>`;
   inner = shadow + inner;
   if(flip) inner = mir(inner);
@@ -562,7 +666,7 @@ const IT = {}; ITEMS.forEach(i => IT[i.id] = i);
 
 /* ========== 存檔 ========== */
 function defState(){ return {v:2, name:'', team:{}, partner:'', acc:{hat:'', glass:'', held:''}, coins:30, owned:['rainbow'], bg:'rainbow',
-  qs:{}, sk:{}, lv:{}, mon:{}, beaten:[], days:{}, tasks:null, ach:{}, tests:[], custom:[], set:{sfx:true, tts:true, tapread:true, rate:0.85}, total:{n:0, c:0, maxCombo:0, ex:0}, tut:{}, subj:'chi'}; }
+  qs:{}, sk:{}, lv:{}, mon:{}, beaten:[], days:{}, tasks:null, ach:{}, tests:[], custom:[], set:{sfx:true, tts:true, tapread:true, rate:0.85, bgm:true, fx:true}, total:{n:0, c:0, maxCombo:0, ex:0}, tut:{}, subj:'chi'}; }
 let S;
 function load(){
   S = defState();
@@ -589,66 +693,135 @@ function save(now){
   if(now) f(); else saveT = setTimeout(f, 300);
 }
 load(); rebuildCustom();
-
-/* ========== 音效（WEB-01、WEB-24） ========== */
-let AC = null, acStale = false;
-function ensureAudio(){
-  if(!S.set.sfx) return;
-  try{
-    if(AC && (acStale || AC.state === 'closed' || AC.state === 'interrupted')){ try{ AC.close(); }catch(e){} AC = null; }
-    if(!AC){ AC = new (window.AudioContext || window.webkitAudioContext)(); AC.onstatechange = () => { if(AC && AC.state !== 'running') acStale = true; }; }
-    acStale = false;
-    if(AC.state === 'suspended') AC.resume();
-  }catch(e){}
+function seedMonsters(){
+  S.seedDone = S.seedDone || [];
+  QS.filter(q => q.seed && !S.seedDone.includes(q.id)).forEach(q => { if(!S.qs[q.id] && !S.mon[q.id]) S.mon[q.id] = {hp:2, e:pickOne(MONS), born:today(), hit:''}; S.seedDone.push(q.id); });
 }
-function tone(f, d, type, vol, delay){
-  if(!S.set.sfx || !AC) return;
-  try{
-    const t = AC.currentTime + (delay||0), o = AC.createOscillator(), g = AC.createGain();
-    o.type = type || 'sine'; o.frequency.setValueAtTime(f, t);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.15, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
-    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + 0.05);
-  }catch(e){}
-}
-const SFX = {
-  tap(){ tone(560, .06, 'sine', .07); },
-  ok(){ tone(660, .12, 'triangle', .16); tone(990, .2, 'triangle', .16, .1); },
-  bad(){ tone(240, .18, 'sawtooth', .07); tone(180, .25, 'sawtooth', .07, .12); },
-  coin(){ tone(1320, .07, 'square', .05); tone(1760, .14, 'square', .05, .07); },
-  up(){ [523,659,784,1047].forEach((f,i) => tone(f, .2, 'triangle', .15, i*.11)); },
-  hit(){ tone(140, .16, 'square', .1); tone(90, .2, 'square', .08, .06); },
-  zap(){ tone(900, .12, 'sawtooth', .06); tone(1400, .1, 'square', .04, .05); },
-  win(){ [523,659,784,659,784,1047].forEach((f,i) => tone(f, .18, 'triangle', .14, i*.12)); }
-};
+if(S.partner) seedMonsters();
 
-/* ========== 讀字（香港粵語） ========== */
-let VOICES = [], yueWarned = false;
+/* ========== 音效、背景音樂：見 fx.js（WEB-01、WEB-24） ========== */
+const applyFx = () => FX.config({sfx:S.set.sfx, bgm:S.set.bgm, fx:S.set.fx});
+applyFx();
+
+/* ========== 讀字（香港粵語；讀到邊個字，邊個字變大變色） ========== */
+let VOICES = [], yueWarned = false, spkTok = 0, RD = null;
 function loadVoices(){ try{ VOICES = speechSynthesis.getVoices() || []; }catch(e){} }
 if('speechSynthesis' in window){ loadVoices(); try{ speechSynthesis.addEventListener('voiceschanged', loadVoices); }catch(e){ speechSynthesis.onvoiceschanged = loadVoices; } }
 const yueVoice = () => VOICES.find(v => /^zh[-_]HK/i.test(v.lang)) || VOICES.find(v => /yue|cantonese|粵|廣東/i.test(v.lang + ' ' + v.name));
 const enVoice = () => VOICES.find(v => /^en[-_]GB/i.test(v.lang)) || VOICES.find(v => /^en/i.test(v.lang));
+const EMO = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2460}-\u{24FF}️‍]/u;
 function cleanSay(t){
   return String(t).replace(/（＿＿）|＿＿/g, '，空格，').replace(/＿/g, '，空格，').replace(/→/g, '，然後，').replace(/↔/g, '，相反係，').replace(/＝/g, '，即係，')
     .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2460}-\u{24FF}️]/gu, ' ');
 }
-function speak(text, lang){
-  if(!S.set.tts || !('speechSynthesis' in window)) return;
-  try{
-    const t = cleanSay(text); if(!t.trim()) return;
-    const en = lang === 'en' || (/[a-z]{2}/i.test(t) && !CJK.test(t));
-    const u = new SpeechSynthesisUtterance(t);
-    if(en){ u.lang = 'en-GB'; const v = enVoice(); if(v) u.voice = v; }
-    else { u.lang = 'zh-HK'; const v = yueVoice(); if(v) u.voice = v; else if(!yueWarned && VOICES.length){ yueWarned = true; toast('部機搵唔到粵語聲：請家長喺家長區睇點樣加', 3500); } }
-    u.rate = S.set.rate || 0.85;
-    if(speechSynthesis.speaking || speechSynthesis.pending){ speechSynthesis.cancel(); setTimeout(() => speechSynthesis.speak(u), 80); }
-    else speechSynthesis.speak(u);
-  }catch(e){}
+function mkUtter(text, lang){
+  const en = lang === 'en' || (/[a-z]{2}/i.test(text) && !CJK.test(text));
+  const u = new SpeechSynthesisUtterance(text);
+  if(en){ u.lang = 'en-GB'; const v = enVoice(); if(v) u.voice = v; }
+  else { u.lang = 'zh-HK'; const v = yueVoice(); if(v) u.voice = v; else if(!yueWarned && VOICES.length){ yueWarned = true; toast('部機搵唔到粵語聲：請家長喺家長區睇點樣加', 3500); } }
+  u.rate = S.set.rate || 0.85;
+  return u;
 }
+function sayRaw(u){ if(speechSynthesis.speaking || speechSynthesis.pending){ speechSynthesis.cancel(); setTimeout(() => speechSynthesis.speak(u), 90); } else speechSynthesis.speak(u); }
+function clearRead(){
+  if(!RD) return;
+  const me = RD; RD = null; clearInterval(me.timer); clearTimeout(me.t0); clearTimeout(me.t1);
+  setTimeout(() => me.map.forEach(s => s && s.classList.remove('on', 'done')), 300);
+}
+function stopSpeak(){ spkTok++; clearRead(); try{ speechSynthesis.cancel(); }catch(e){} FX.duck(false); }
+// 冇字對應嘅普通讀法（名、結果）
+function speak(text, lang, onend){
+  spkTok++;
+  if(!S.set.tts || !('speechSynthesis' in window)){ onend && onend(); return; }
+  clearRead();
+  try{ const t = cleanSay(text); if(!t.trim()){ onend && onend(); return; } const u = mkUtter(t, lang); u.onstart = () => FX.duck(true); u.onend = u.onerror = () => { FX.duck(false); onend && onend(); }; sayRaw(u); }catch(e){}
+}
+// 由畫面上嘅字砌出要讀嘅句子，同埋每個字對應邊個 <span>
+function readParts(block){
+  const text = [], map = [];
+  const add = (str, el) => { for(const c of str){ if(EMO.test(c)) continue; text.push(c); map.push(el); } };
+  const walk = n => {
+    if(n.nodeType === 3){ add(n.nodeValue, null); return; }
+    if(n.nodeType !== 1) return;
+    const cl = n.classList;
+    if(cl.contains('rc')){ add(n.textContent, n); return; }
+    if(cl.contains('blank')){ add('，空格，', null); return; }
+    if(n.tagName === 'BR'){ add('。', null); return; }
+    if(cl.contains('osp') || cl.contains('spk') || cl.contains('m') || cl.contains('nord')) return;
+    if(n.tagName === 'BUTTON' && !cl.contains('opt') && !cl.contains('slot')) return;
+    n.childNodes.forEach(walk);
+    if(n.tagName === 'DIV' && text.length && !/[，。！？、：；]/.test(text[text.length - 1])) add('，', null);
+  };
+  walk(block);
+  return {text, map};
+}
+function speakMapped(text, map, lang, onend, keepTok){
+  if(!keepTok) spkTok++;
+  const tok = spkTok;
+  if(!S.set.tts || !('speechSynthesis' in window)){ onend && onend(); return; }
+  clearRead();
+  const str = text.join('');
+  if(!str.replace(/[\s，。、！？：；「」（）…—]/g, '')){ onend && onend(); return; }
+  const pos = []; let p = 0; text.forEach((c, i) => { for(let k = 0; k < c.length; k++) pos[p + k] = i; p += c.length; });
+  const me = RD = {map, i:-1, timer:0, t0:0, t1:0, got:false};
+  const mark = (i, len) => {
+    if(RD !== me) return;
+    for(let k = 0; k < map.length; k++){ const sp = map[k]; if(!sp) continue;
+      if(k >= i && k < i + len){ sp.classList.add('on'); sp.classList.remove('done'); }
+      else if(k < i){ sp.classList.remove('on'); sp.classList.add('done'); } else sp.classList.remove('on', 'done'); }
+    me.i = i;
+  };
+  // 冇 boundary 事件嘅瀏覽器：按語速估計讀到邊
+  const startTimer = () => {
+    if(me.got || me.timer || RD !== me) return;
+    let i = Math.max(0, me.i); const per = 1000 / (5.4 * (S.set.rate || .85));
+    me.timer = setInterval(() => {
+      if(me.got || RD !== me){ clearInterval(me.timer); return; }
+      while(i < map.length && !map[i] && !/[，。！？、：；]/.test(text[i])) i++;
+      if(i >= map.length){ clearInterval(me.timer); return; }
+      if(map[i]) mark(i, 1);
+      i++;
+    }, per);
+  };
+  try{
+    const u = mkUtter(str, lang);
+    u.onboundary = e => {
+      if(e.name === 'sentence' || typeof e.charIndex !== 'number') return;
+      const i = pos[e.charIndex]; if(i == null) return;
+      if(!me.got){ me.got = true; clearInterval(me.timer); }
+      let len = 1; if(e.charLength){ const j = pos[Math.min(str.length - 1, e.charIndex + e.charLength - 1)]; if(j != null) len = j - i + 1; }
+      mark(i, Math.max(1, Math.min(len, 4)));
+    };
+    u.onstart = () => { FX.duck(true); me.t0 = setTimeout(startTimer, 380); };
+    me.t1 = setTimeout(startTimer, 1300);
+    u.onend = u.onerror = () => { FX.duck(false); if(RD === me) clearRead(); if(tok === spkTok) onend && onend(); };
+    sayRaw(u);
+  }catch(e){ onend && onend(); }
+}
+// 讀成段（🔊 讀題、讀選項）
+function speakBlock(el, lang, onend){ if(!el) return; const {text, map} = readParts(el); speakMapped(text, map, lang, onend); }
+// 撳一個字：由嗰個字開始讀，讀完成句
+function speakFrom(span){
+  const block = span.closest('.rb') || span.parentElement;
+  const {text, map} = readParts(block);
+  let a = map.indexOf(span); if(a < 0) a = 0;
+  let b = a; while(b < text.length && !/[。！？!?]/.test(text[b])) b++;
+  b = Math.min(text.length, b + 1);
+  while(b < text.length && /[」』）]/.test(text[b])) b++;
+  speakMapped(text.slice(a, b), map.slice(a, b), qLangOf(block));
+}
+// 一段一段讀落去（解釋視窗）
+function speakSeq(blocks, lang){
+  spkTok++; const tok = spkTok; let i = 0;
+  const next = () => { if(tok !== spkTok || i >= blocks.length) return; const {text, map} = readParts(blocks[i++]); speakMapped(text, map, lang, next, true); };
+  next();
+}
+const qLangOf = el => (R && cur === 'quiz' && R.list[R.i] && qLang(R.list[R.i])) || '';
 let speakOK = false;
 function unlockSpeech(){ if(speakOK || !('speechSynthesis' in window)) return; speakOK = true; try{ const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); }catch(e){} }
-window.addEventListener('pointerdown', () => { ensureAudio(); unlockSpeech(); }, true);
-document.addEventListener('visibilitychange', () => { if(document.hidden){ acStale = true; save(true); try{ speechSynthesis.cancel(); }catch(e){} } else { onFront(); } });
-window.addEventListener('pageshow', e => { if(e.persisted){ acStale = true; onFront(); } });
+window.addEventListener('pointerdown', () => { FX.ensure(); unlockSpeech(); }, true);
+document.addEventListener('visibilitychange', () => { if(document.hidden){ FX.stale(); FX.bgmOff(); save(true); stopSpeak(); } else { onFront(); } });
+window.addEventListener('pageshow', e => { if(e.persisted){ FX.stale(); onFront(); } });
 window.addEventListener('pagehide', () => save(true));
 
 /* ========== 畫面高度、擋放大（WEB-06、WEB-26） ========== */
@@ -666,16 +839,7 @@ window.addEventListener('keydown', e => { if((e.ctrlKey || e.metaKey) && ['+','-
 let toastT = 0;
 function toast(msg, ms){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), ms || 2200); }
 function floatText(txt, x, y){ const d = document.createElement('div'); d.className = 'float'; d.textContent = txt; d.style.left = (x - 30) + 'px'; d.style.top = y + 'px'; document.body.appendChild(d); setTimeout(() => d.remove(), 1000); }
-function confetti(n){
-  const cols = ['#ff7a45','#7b5cff','#22b573','#ffb703','#ff4f6d','#25c4d4'];
-  for(let i = 0; i < (n||60); i++){
-    const c = document.createElement('div'); c.className = 'conf';
-    c.style.left = rnd(100) + 'vw'; c.style.background = pickOne(cols);
-    c.style.animationDuration = (1.6 + Math.random()*1.6) + 's'; c.style.animationDelay = (Math.random()*.5) + 's';
-    c.style.borderRadius = rnd(2) ? '50%' : '2px';
-    document.body.appendChild(c); setTimeout(() => c.remove(), 3800);
-  }
-}
+function confetti(n){ FX.confetti(n); }
 
 /* ========== 統計 ========== */
 function skillAcc(sk){ let c = 0, n = 0; skillQs(sk).forEach(q => { const s = S.qs[q.id]; if(s){ c += s.c; n += s.c + s.w; } }); return n ? {c, n, p: c/n} : {c:0, n:0, p:null}; }
@@ -760,7 +924,7 @@ let cur = 'home', curArg = null;
 function show(name, arg){
   cur = name; curArg = arg;
   hideFb(); closeEx();
-  const v = $('#view'); v.classList.toggle('pad', name === 'quiz'); v.innerHTML = SCREENS[name](arg); v.scrollTop = 0;
+  const v = $('#view'); v.classList.toggle('pad', name === 'quiz'); v.innerHTML = SCREENS[name](arg); v.scrollTop = 0; v.classList.remove('vin'); void v.offsetWidth; v.classList.add('vin'); stopSpeak();
   if(AFTER[name]) AFTER[name](arg);
   if(name === 'home') setTimeout(tryReload, 800);
 }
@@ -771,7 +935,7 @@ const coinChip = () => `<span class="chip">🪙 ${S.coins}</span>`;
 function petHTML(size, cls){
   const sp = S.partner, m = partner(), st = stageOf(m.lv), a = S.acc;
   const top = (st === 0 ? 22 : [52,42,34][st-1]) / 200, eyY = st === 0 ? 0 : [104,87,76][st-1] / 200;
-  return `<div class="pet ${st === 0 ? 'egg' : ''} ${sp === 'psy' && st === 3 ? 'floaty' : ''} ${cls||''}" style="--s:${size}px" data-act="pet"><span class="pb">${crSVG(sp, m.lv)}</span>${
+  return `<div class="pet cr-anim ${st === 0 ? 'egg' : ''} ${sp === 'psy' && st === 3 ? 'floaty' : ''} ${cls||''}" style="--s:${size}px" data-act="pet"><span class="pb">${crSVG(sp, m.lv)}</span>${
     a.hat && IT[a.hat] ? `<span class="acc hat" style="top:${Math.round(size*(top-.3))}px">${IT[a.hat].e}</span>` : ''}${
     a.glass && st > 0 && IT[a.glass] ? `<span class="acc glass" style="top:${Math.round(size*(eyY-.15))}px">${IT[a.glass].e}</span>` : ''}${
     a.held && IT[a.held] ? `<span class="acc held">${IT[a.held].e}</span>` : ''}</div>`;
@@ -810,14 +974,16 @@ SCREENS.welcome = () => {
 SCREENS.home = () => {
   ensureTasks();
   const m = partner(), mc = monCount(), tc = tasksToClaim();
-  return `<div class="topbar"><span class="chip">🔥 ${streak()}</span><span class="chip">⭐ ${totalStars()}</span><div style="flex:1"></div>${coinChip()}</div>
+  const ex = examStats();
+  return `<div class="topbar"><span class="chip">🔥 ${streak()}</span><span class="chip">⭐ ${totalStars()}</span><button class="chip" data-act="bgm">${S.set.bgm ? '🎵' : '🔇'}</button><div style="flex:1"></div>${coinChip()}</div>
   <div class="stage bg-${S.bg}"><div class="petwrap">
-    <div class="bubble" id="bub">${rt(petLine())}</div>
+    <div class="bubble rb" id="bub">${rt(petLine())}</div>
     ${petHTML(160)}
     <div class="pname">${esc(crName(S.partner))} <span class="lvtag">Lv${m.lv}</span> ${tBadge(SPECIES[S.partner].type)}</div>
     <div class="xpbar"><i style="width:${Math.min(100, m.xp/need(m.lv)*100)}%"></i></div>
   </div></div>
   <div style="position:relative"><button class="btn bigmap" data-act="go" data-to="map" id="mapbtn">🗺️ 冒險地圖</button></div>
+  ${ex.n ? `<button class="tile wide exam" data-act="exam"><span class="ic">🎯</span><span>11月測驗衝刺<br><small>測驗範圍 ${ex.n} 題・${ex.p === null ? '未開始' : '答對率 ' + Math.round(ex.p*100) + '%'}</small></span></button><div style="height:12px"></div>` : ''}
   <div class="grid">
     <button class="tile" data-act="smart"><span class="ic">📖</span>今日溫習<small>電腦幫你揀題</small></button>
     <button class="tile" data-act="go" data-to="monsters"><span class="ic">👾</span>錯題怪獸<small>${mc ? mc + ' 隻等緊你' : '暫時冇怪獸'}</small>${mc ? `<span class="badge">${mc}</span>` : ''}</button>
@@ -829,7 +995,9 @@ SCREENS.home = () => {
   </div>
   <div class="foot"><button id="parentBtn">👨‍👩‍👧 家長區（撳住 2 秒）</button><br>溫習樂園 v${VER} ・ 由 Bill Chiu 開發</div>`;
 };
+function examStats(){ let c = 0, n = 0, t = 0; SKILLS.filter(s => s.exam).forEach(s => { const a = skillAcc(s.id); c += a.c; n += a.n; t += skillQs(s.id).length; }); return {n:t, p: n ? c/n : null}; }
 AFTER.home = () => {
+  FX.ambient(document.querySelector('.stage'), S.bg);
   // 新手：第一次見主頁，用手指指住「冒險地圖」（GAME-17：唔用文字教）
   if(!S.tut.map){ const b = $('#mapbtn'); if(b){ const h = document.createElement('div'); h.className = 'hand'; h.textContent = '👈'; h.style.top = '16px'; h.style.right = '14px'; b.parentNode.appendChild(h); } }
   const pb = $('#parentBtn'); let pt = 0;
@@ -846,7 +1014,7 @@ SCREENS.map = () => {
   return topbar('🗺️ 冒險地圖', coinChip()) + tabs + list.map(s => {
     const lvs = levelsOf(s.id), stars = lvs.reduce((a, _, i) => a + (S.lv[s.id+'-'+i]||0), 0), acc = skillAcc(s.id);
     return `<button class="isle" style="background:${s.color}" data-act="isle" data-sk="${s.id}">
-      ${s.id === w ? '<span class="weak">💪 要加強</span>' : ''}
+      ${s.id === w ? '<span class="weak">💪 要加強</span>' : s.exam ? '<span class="weak exmb">📝 測驗範圍</span>' : ''}
       <span class="ic">${s.icon}</span>
       <span style="flex:1"><div class="nm">${s.name}</div><div class="ds">${s.desc}${s.type ? '　' + TYPE_IC[s.type] : ''}</div>
       <div class="ds">⭐ ${stars}/${lvs.length*3}　${acc.p === null ? '未試過' : '答對率 ' + Math.round(acc.p*100) + '%'}</div>
@@ -875,11 +1043,11 @@ SCREENS.monsters = () => {
   return topbar('👾 錯題怪獸', coinChip()) +
   `<div class="card center"><div style="font-weight:800">${rt('答錯嘅題目會變成怪獸。打中佢兩次（唔同日子）就打敗佢！')}</div></div>` +
   (ids.length ? `<div class="mons">${ids.map(id => { const m = S.mon[id], q = QMAP[id]; const tired = m.hit === t;
-     return `<div class="mon ${tired ? 'tired' : ''}">${tired ? '<span class="zzz">💤</span>' : ''}<div class="me">${m.e}</div><div class="mh">${'❤️'.repeat(m.hp)}${'🖤'.repeat(Math.max(0, 2-m.hp))}</div><div class="ms">${SK[q.sk].icon} ${SK[q.sk].name}</div></div>`; }).join('')}</div>
+     return `<div class="mon ${tired ? 'tired' : ''}">${tired ? '<span class="zzz">💤</span>' : ''}<div class="me">${FX.monSVG(id)}</div><div class="mh">${'❤️'.repeat(m.hp)}${'🖤'.repeat(Math.max(0, 2-m.hp))}</div><div class="ms">${SK[q.sk].icon} ${SK[q.sk].name}</div></div>`; }).join('')}</div>
      <div style="height:14px"></div>
      ${ready.length ? `<button class="btn" data-act="fight">⚔️ 開戰！（${Math.min(ready.length, 8)} 隻）</button>` : `<div class="card center">💤 怪獸今日已經受傷，聽日再嚟打！</div>`}`
    : `<div class="card center"><div style="font-size:56px">🎉</div><b>而家冇怪獸！</b><div class="muted">答錯嘅題目會喺度出現。</div></div>`) +
-  (S.beaten.length ? `<div class="card" style="margin-top:14px"><b>🏅 已打敗 ${S.beaten.length} 隻</b><div style="font-size:28px;margin-top:6px;line-height:1.5">${Object.keys(beaten).map(e => `${e}<small style="font-size:14px">×${beaten[e]}</small>`).join(' ')}</div></div>` : '');
+  (S.beaten.length ? `<div class="card" style="margin-top:14px"><b>🏅 已打敗 ${S.beaten.length} 隻</b><div class="bmons">${S.beaten.slice(-48).map(x => /^[a-z]+-\d+$/.test(x) ? `<span class="bmon">${FX.monSVG(x)}</span>` : `<span class="bmon" style="font-size:28px">${x}</span>`).join('')}</div></div>` : '');
 };
 
 SCREENS.dex = () => {
@@ -946,43 +1114,43 @@ function startSession(mode, list, meta){
 function sessionTitle(){
   if(R.mode === 'level') return `${SK[R.meta.sk].icon} ${SK[R.meta.sk].name} 第 ${R.meta.lv+1} 關`;
   if(R.mode === 'smart') return '📖 今日溫習';
+  if(R.mode === 'exam') return '🎯 11月測驗衝刺';
   if(R.mode === 'monster') return '⚔️ 怪獸大戰';
   if(R.mode === 'test') return `👹 ${SJ[R.meta.subj || 'chi'].name}測驗挑戰`;
   return `${SK[R.meta.sk].icon} 隨機練習`;
 }
 const foeType = q => R.foe.kind === 'wild' ? R.foe.type : R.foe.kind === 'mon' ? (SK[q.sk].type || '') : '';
 const isAdv = q => { const my = SPECIES[S.partner].type, ft = foeType(q); return !!(ft && BEATS[my] && BEATS[my].includes(ft)); };
+const hpBar = () => { const w = R.foeHp/R.list.length*100; return `<div class="hpw"><b id="foeHpLag" style="width:${w}%"></b><i id="foeHp" style="width:${w}%"></i></div>`; };
 function arenaHTML(q){
   const m = partner(), myName = crName(S.partner);
   let foeHtml = '', foeTop = '', foeName = '';
-  if(R.foe.kind === 'wild'){ foeHtml = drawCreature(R.foe.sp, R.foe.st, true); foeName = `${R.foe.name} ${TYPE_IC[R.foe.type]}`; foeTop = `<div class="hpw"><i id="foeHp" style="width:${R.foeHp/R.list.length*100}%"></i></div>`; }
-  else if(R.foe.kind === 'boss'){ foeHtml = '<span class="femo">👹</span>'; foeName = '測驗大魔王'; foeTop = `<div class="hpw"><i id="foeHp" style="width:${R.foeHp/R.list.length*100}%"></i></div>`; }
-  else { const mo = S.mon[q.id] || {e:'👾', hp:0}; foeHtml = `<span class="femo">${mo.e}</span>`; foeName = '錯題怪獸 ' + (SK[q.sk].type ? TYPE_IC[SK[q.sk].type] : ''); foeTop = `<div class="hearts">${'❤️'.repeat(mo.hp)}${'🖤'.repeat(Math.max(0, 2-mo.hp))}</div>`; }
-  const mb = R.foe.kind !== 'mon' && S.mon[q.id] ? `<span class="monbadge">${S.mon[q.id].e}</span>` : '';
+  if(R.foe.kind === 'wild'){ foeHtml = drawCreature(R.foe.sp, R.foe.st, true); foeName = `${R.foe.name} ${TYPE_IC[R.foe.type]}`; foeTop = hpBar(); }
+  else if(R.foe.kind === 'boss'){ foeHtml = '<span class="femo boss">👹</span>'; foeName = '測驗大魔王'; foeTop = hpBar(); }
+  else { const mo = S.mon[q.id] || {e:'👾', hp:0}; foeHtml = `<span class="femo">${FX.monSVG(q.id)}</span>`; foeName = '錯題怪獸 ' + (SK[q.sk].type ? TYPE_IC[SK[q.sk].type] : ''); foeTop = `<div class="hearts">${'❤️'.repeat(mo.hp)}${'🖤'.repeat(Math.max(0, 2-mo.hp))}</div>`; }
+  const mb = R.foe.kind !== 'mon' && S.mon[q.id] ? `<span class="monbadge">${FX.monSVG(q.id)}</span>` : '';
   return `<div class="arena bg-${S.bg}" id="arena">
-    <div class="side"><div class="cr ${S.partner === 'psy' && stageOf(m.lv) === 3 ? 'floaty' : ''}" id="meCr">${crSVG(S.partner, m.lv)}</div><div class="nm">${esc(myName)} Lv${m.lv}</div></div>
-    <div class="side">${foeTop}<div class="cr" id="foeCr">${foeHtml}${mb}</div><div class="nm">${foeName}</div></div></div>`;
+    <div class="side"><div class="cr cr-anim ${S.partner === 'psy' && stageOf(m.lv) === 3 ? 'floaty' : ''}" id="meCr">${crSVG(S.partner, m.lv)}</div><div class="nm">${esc(myName)} Lv${m.lv}</div></div>
+    <div class="side">${foeTop}<div class="cr cr-anim" id="foeCr">${foeHtml}${mb}</div><div class="nm">${foeName}</div></div></div>`;
 }
 function moveName(){ const st = stageOf(partner().lv); if(st === 0) return '蛋蛋撞擊'; return pickOne(SPECIES[S.partner].mv.slice(0, st)); }
 function doAttack(ok, adv){
   const me = $('#meCr'), fo = $('#foeCr'), ar = $('#arena'); if(!me || !fo || !ar) return;
   const replay = (el, c) => { el.classList.remove(c); void el.offsetWidth; el.classList.add(c); };
-  const a = ar.getBoundingClientRect(), r1 = me.getBoundingClientRect(), r2 = fo.getBoundingClientRect();
-  const p1 = {x:r1.left - a.left + r1.width*.62, y:r1.top - a.top + r1.height*.45}, p2 = {x:r2.left - a.left + r2.width*.45, y:r2.top - a.top + r2.height*.45};
   const txt = document.createElement('div'); txt.className = 'mvtxt';
   if(ok){
+    const st = stageOf(partner().lv), type = st === 0 ? '' : SPECIES[S.partner].type;
     txt.textContent = `${crName(S.partner)}使出「${moveName()}」！${adv ? '克制！' : ''}`;
-    replay(me, 'lunge'); SFX.zap();
-    const orb = document.createElement('div'); orb.className = 'orb'; orb.style.background = `radial-gradient(circle,#fff 0 25%,${SPECIES[S.partner].orb} 60%)`; orb.style.left = p1.x + 'px'; orb.style.top = p1.y + 'px'; ar.appendChild(orb);
-    try{ orb.animate([{transform:'scale(.5)', opacity:1}, {transform:`translate(${p2.x-p1.x}px,${p2.y-p1.y}px) scale(${adv ? 1.8 : 1.3})`, opacity:.95}], {duration:380, fill:'forwards'}); }catch(e){}
-    setTimeout(() => {
-      orb.remove(); replay(fo, 'hurt'); SFX.hit();
-      const d = document.createElement('div'); d.className = 'dmg'; d.textContent = adv ? '克制！' : '-1'; d.style.left = (p2.x - 20) + 'px'; d.style.top = (p2.y - 30) + 'px'; ar.appendChild(d); setTimeout(() => d.remove(), 1000);
-      if(R.foe.kind !== 'mon'){ const hp = $('#foeHp'); if(hp) hp.style.width = (R.foeHp / R.list.length * 100) + '%'; if(R.foeHp <= 0) fo.classList.add('faint'); }
-    }, 380);
+    replay(me, 'lunge');
+    FX.attack(type, me, fo, adv, () => {
+      replay(fo, 'hurt'); adv ? SFX.crit() : SFX.hit(); FX.shake(ar, adv ? 10 : 6);
+      const r2 = fo.getBoundingClientRect(); FX.floatText(adv ? '克制！' : '-1', r2.left + r2.width/2, r2.top + 10, adv ? 'crit' : 'dmg');
+      if(R.foe.kind !== 'mon'){ const w = (R.foeHp / R.list.length * 100) + '%', hp = $('#foeHp'), lag = $('#foeHpLag'); if(hp) hp.style.width = w; if(lag) setTimeout(() => lag.style.width = w, 350); if(R.foeHp <= 0) setTimeout(() => fo.classList.add('faint'), 300); }
+    });
   } else {
     txt.textContent = '對手反擊！';
-    replay(fo, 'lungeL'); setTimeout(() => { replay(me, 'hurt'); SFX.hit(); }, 230);
+    replay(fo, 'lungeL');
+    FX.counter(me, fo, () => { replay(me, 'hurt'); FX.shake(ar, 5); });
   }
   ar.appendChild(txt); setTimeout(() => txt.remove(), 1500);
 }
@@ -998,7 +1166,7 @@ SCREENS.quiz = () => {
 AFTER.quiz = () => {
   const q = R.list[R.i];
   if(AFTER_Q[q.t]) AFTER_Q[q.t](q);
-  if(!S.tut.q){ const t = document.querySelector('.opts,.pool,.palette,.chs,.mgrid'); if(t){ t.style.position = 'relative'; const h = document.createElement('div'); h.className = 'hand'; h.id = 'tuthand'; h.textContent = '👆'; h.style.left = '50%'; h.style.bottom = '-50px'; h.style.marginLeft = '-22px'; t.appendChild(h); } }
+  if(!S.tut.q){ const t = document.querySelector('.opts,.pool,.palette,.chs,.mgrid,.pks'); if(t){ t.style.position = 'relative'; const h = document.createElement('div'); h.className = 'hand'; h.id = 'tuthand'; h.textContent = '👆'; h.style.left = '50%'; h.style.bottom = '-50px'; h.style.marginLeft = '-22px'; t.appendChild(h); } }
 };
 const qSpeak = q => q.t === 'mc' ? q.q : q.t === 'typo' ? q.s : q.t === 'punct' ? q.s.replace(/＿/g, '') : q.h || '';
 const spkBtn = q => (q.t === 'mc' || q.t === 'typo' || q.h) ? `<button class="spk" data-act="speak">🔊 讀題</button>` : '';
@@ -1008,15 +1176,15 @@ const RENDER = {}, AFTER_Q = {};
 RENDER.mc = (q, tip) => {
   const opts = q.fixed ? q.o.map((t, i) => ({t, i})) : shuffle(q.o.map((t, i) => ({t, i})));
   const long = q.o.some(o => o.length > 7);
-  return `<div class="qcard"><div class="qtip">${esc(tip)}${spkBtn(q)}</div><div class="qtext">${q.quote ? '「' + rt(q.q) + '」' : fmtQ(q.q)}</div></div>
-    <div class="opts ${long ? 'long' : q.o.length === 3 ? 'three' : ''}">${opts.map((o, k) => `<button class="opt" data-act="mc" data-i="${o.i}"><b>${'ABCD'[k]}</b><span>${esc(o.t)}</span>${S.set.tts ? `<span class="osp" data-act="sayo" data-t="${esc(o.t)}">🔊</span>` : ''}</button>`).join('')}</div>`;
+  return `<div class="qcard"><div class="qtip">${esc(tip)}${spkBtn(q)}</div><div class="qtext rb">${q.quote ? '「' + rt(q.q) + '」' : fmtQ(q.q)}</div></div>
+    <div class="opts ${long ? 'long' : q.o.length === 3 ? 'three' : ''}">${opts.map((o, k) => `<button class="opt" data-act="mc" data-i="${o.i}"><b>${'ABCD'[k]}</b><span class="ot">${rt(o.t, false)}</span>${S.set.tts ? `<span class="osp" data-act="sayo">🔊</span>` : ''}</button>`).join('')}</div>`;
 };
 RENDER.order = (q, tip) => {
   let pool = shuffle(q.w.map((t, i) => ({t, i})));
   for(let k = 0; k < 5 && pool.every((x, i) => x.i === i); k++) pool = shuffle(pool);
   if(q.para) pool.forEach((x, k) => x.lab = 'ABCDEFGH'[k]);
   R.ord = {pool, ans:[]};
-  return `<div class="qcard"><div class="qtip">${esc(tip)}${spkBtn(q)}</div>${q.h ? `<div class="hint">${rt(q.h)}</div>` : ''}${q.para ? '<div class="small muted" style="font-weight:700">按次序撳句子（撳一下會讀出嚟）</div>' : ''}</div>
+  return `<div class="qcard"><div class="qtip">${esc(tip)}${spkBtn(q)}</div>${q.h ? `<div class="hint rb">${rt(q.h)}</div>` : ''}${q.para ? '<div class="small muted" style="font-weight:700">按次序撳句子（撳一下會讀出嚟）</div>' : ''}</div>
     <div class="ansline ${q.para ? 'col' : ''}" id="ansline"></div>
     <div class="pool ${q.para ? 'col' : ''}" id="pool"></div>
     <button class="btn ok" id="chk" data-act="ordchk" disabled>✔ 檢查</button>`;
@@ -1032,7 +1200,7 @@ function drawOrder(){
 RENDER.punct = (q, tip) => {
   const parts = q.s.split('＿');
   R.pc = {v: Array(parts.length - 1).fill(''), cur: 0};
-  return `<div class="qcard"><div class="qtip">${esc(tip)}<button class="spk" data-act="speak">🔊 讀題</button></div><div class="qtext" id="ptext">${parts.map((p, k) => rt(p) + (k < parts.length - 1 ? `<button class="slot" data-act="slot" data-k="${k}"></button>` : '')).join('')}</div></div>
+  return `<div class="qcard"><div class="qtip">${esc(tip)}<button class="spk" data-act="speak">🔊 讀題</button></div><div class="qtext rb" id="ptext">${parts.map((p, k) => rt(p) + (k < parts.length - 1 ? `<button class="slot" data-act="slot" data-k="${k}"></button>` : '')).join('')}</div></div>
     <div class="palette">${['，','。','、','！','？','：','「','」','……','《','》','；'].map(p => `<button class="pal ${p.length > 1 ? 'sm' : ''}" data-act="pal" data-p="${p}">${p}</button>`).join('')}</div>
     <div class="row"><button class="btn gray" data-act="pclr">↺ 清除</button><button class="btn ok" id="chk" data-act="pchk" disabled>✔ 檢查</button></div>`;
 };
@@ -1047,6 +1215,13 @@ RENDER.typo = (q, tip) => {
   return `<div class="qcard"><div class="qtip">${esc(tip)}${spkBtn(q)}</div><div class="small muted" style="font-weight:700;margin-bottom:8px">撳「🔊 讀題」聽句子，再搵出寫錯咗嘅字</div><div class="chs">${chars.map((c, k) => /[，。？！、：；「」]/.test(c) ? `<span class="ch pun">${c}</span>` : `<button class="ch" data-act="ch" data-k="${k}">${esc(c)}</button>`).join('')}</div></div>
     <div id="fix"></div>`;
 };
+RENDER.pick = (q, tip) => {
+  R.pk = new Set();
+  return `<div class="qcard"><div class="qtip">${esc(q.tip || '撳出要加專名號嘅詞語（可以揀多過一個）')}<button class="spk" data-act="speak">🔊 讀題</button></div>
+    <div class="pks rb" id="pks">${q.w.map((t, k) => /^[，。、！？：；]+$/.test(t) ? `<span class="ppun">${t}</span>` : `<button class="ptk" data-act="ptk" data-k="${k}">${rt(t, false)}</button>`).join('')}</div></div>
+    <div class="small muted center" style="font-weight:700;margin-bottom:10px">專名號：人名、地名、國名、朝代名、場所名稱下面畫一條線</div>
+    <button class="btn ok" id="chk" data-act="pkchk">✔ 檢查</button>`;
+};
 RENDER.match = (q, tip) => {
   R.mt = {L: shuffle(q.pairs.map((p, i) => ({t:p[0], i}))), Rr: shuffle(q.pairs.map((p, i) => ({t:p[1], i}))), sel:null, done:0, miss:0};
   return `<div class="qcard"><div class="qtip">${esc(tip)}</div><div class="small muted" style="font-weight:700">${q.kind === '近義詞' ? '意思差不多的詞語' : '意思相反的詞語'}：左邊撳一個，右邊撳一個</div></div>
@@ -1060,9 +1235,10 @@ function qAnswerText(q){
   if(q.t === 'punct'){ const parts = q.s.split('＿'); return parts.map((p, k) => p + (k < parts.length-1 ? (Array.isArray(q.a[k]) ? q.a[k][0] : q.a[k]) : '')).join(''); }
   if(q.t === 'typo') return `「${q.w}」應該寫成「${q.c}」：${q.s}`;
   if(q.t === 'match') return q.pairs.map(p => p[0] + (q.kind === '近義詞' ? '＝' : '↔') + p[1]).join('　');
+  if(q.t === 'pick') return '要加專名號：' + q.a.map(k => q.w[k]).join('、');
   return '';
 }
-function qText(q){ return q.t === 'mc' ? q.q.replace(/（＿＿）|＿＿/g, '（　　）') : q.t === 'typo' || q.t === 'punct' ? q.s.replace(/＿/g, '（　）') : q.t === 'order' ? (q.h || q.w.join(' / ')) : q.kind + '配對：' + q.pairs.map(p => p[0]).join('、'); }
+function qText(q){ if(q.t === 'pick') return '加專名號：' + q.w.join(''); return q.t === 'mc' ? q.q.replace(/（＿＿）|＿＿/g, '（　　）') : q.t === 'typo' || q.t === 'punct' ? q.s.replace(/＿/g, '（　）') : q.t === 'order' ? (q.h || q.w.join(' / ')) : q.kind + '配對：' + q.pairs.map(p => p[0]).join('、'); }
 
 /* ========== 解釋 ========== */
 function autoTrap(q){
@@ -1087,12 +1263,12 @@ function openExplain(q, picked){
   EXQ = {q, picked};
   S.total.ex = (S.total.ex || 0) + 1; save();
   const ps = explainParts(q, picked);
-  $('#exbody').innerHTML = `<div class="exq">${rt(qText(q))}</div>` + ps.map(p => `<div class="exs ${p.cls}"><div class="exh">${p.h}</div>${p.opts ? p.opts.map(o => `<div class="exo ${o.you ? 'you' : ''}"><span class="m">${o.ok ? '✅' : '❌'}</span><span><b>${rt(o.o)}</b>${o.you ? '（你揀嘅）' : ''}${o.n ? '：' + rt(o.n) : ''}</span></div>`).join('') : `<div class="exb ${p.big ? 'big' : ''}">${rt(p.b)}</div>`}</div>`).join('') +
+  $('#exbody').innerHTML = `<div class="exq rb">${rt(qText(q))}</div>` + ps.map(p => `<div class="exs rb ${p.cls}"><div class="exh">${p.h}</div>${p.opts ? p.opts.map(o => `<div class="exo ${o.you ? 'you' : ''}"><span class="m">${o.ok ? '✅' : '❌'}</span><span><b>${rt(o.o)}</b>${o.you ? '（你揀嘅）' : ''}${o.n ? '：' + rt(o.n) : ''}</span></div>`).join('') : `<div class="exb ${p.big ? 'big' : ''}">${rt(p.b)}</div>`}</div>`).join('') +
     `<button class="btn ok" data-act="exclose">明白了 👍</button>`;
   $('#ex').classList.add('show'); $('#ex .exw').scrollTop = 0;
   setTimeout(checkAch, 300);
 }
-function closeEx(){ const e = $('#ex'); if(e.classList.contains('show')){ e.classList.remove('show'); try{ speechSynthesis.cancel(); }catch(err){} } }
+function closeEx(){ const e = $('#ex'); if(e.classList.contains('show')){ e.classList.remove('show'); stopSpeak(); } }
 function explainSpeech(){
   if(!EXQ) return '';
   return explainParts(EXQ.q, EXQ.picked).map(p => p.h.replace(/^[^一-鿿]+/, '') + '。' + (p.opts ? p.opts.map(o => o.o + (o.ok ? '，啱。' : '，唔啱。') + o.n).join('。') : p.b)).join('。');
@@ -1108,7 +1284,7 @@ function record(q, ok){
   if(ok){ taskAdd('correct', 1); if(q.sk === S.tasks.w) taskAdd('weak', 1); }
   const m = S.mon[q.id];
   if(ok){
-    if(m && m.hit !== t){ m.hp--; m.hit = t; taskAdd('monster', 1); if(m.hp <= 0){ delete S.mon[q.id]; S.beaten.push(m.e); return {ev:'kill', e:m.e}; } return {ev:'hit', e:m.e}; }
+    if(m && m.hit !== t){ m.hp--; m.hit = t; taskAdd('monster', 1); if(m.hp <= 0){ delete S.mon[q.id]; S.beaten.push(q.id); return {ev:'kill', e:m.e}; } return {ev:'hit', e:m.e}; }
   } else {
     if(m){ m.hp = 2; return {ev:'heal', e:m.e}; }
     const e = pickOne(MONS); S.mon[q.id] = {hp:2, e, born:t, hit:''}; return {ev:'new', e};
@@ -1131,6 +1307,8 @@ function answer(ok, srcEl){
     SFX.ok();
     const c = $('#combo'); if(c){ c.textContent = R.combo >= 2 ? '🔥' + R.combo : ''; c.classList.remove('hot'); void c.offsetWidth; c.classList.add('hot'); }
     const rect = (srcEl || $('#qbody')).getBoundingClientRect(); floatText('+' + gain + '🪙', rect.left + rect.width/2, rect.top);
+    FX.burst(rect.left + rect.width/2, rect.top + rect.height/2, {n:12, max:90});
+    if([3, 5, 10, 15, 20].includes(R.combo)){ setTimeout(() => { FX.banner(`🔥 ${R.combo} 連擊！`); SFX.star(R.combo >= 10 ? 4 : 2); }, 250); }
   } else {
     R.combo = 0; R.xp += 2; SFX.bad();
     const c = $('#combo'); if(c) c.textContent = '';
@@ -1145,12 +1323,12 @@ const PRAISE = ['好叻！','答對了！','正呀！','完全正確！','你真
 function showFb(ok, q, r, gain){
   if(cur !== 'quiz') return;
   const fb = $('#fb'), last = R.i >= R.list.length - 1;
-  const ev = r.ev === 'kill' ? `💥 打敗咗怪獸 ${r.e}！` : r.ev === 'hit' ? `💥 打中怪獸 ${r.e}！仲差一次（第日再打）` : r.ev === 'new' ? `${r.e} 一隻錯題怪獸走咗出嚟！之後打敗佢` : r.ev === 'heal' ? `${r.e} 怪獸回復咗體力！` : '';
+  const ev = r.ev === 'kill' ? `💥 打敗咗錯題怪獸！` : r.ev === 'hit' ? `💥 打中錯題怪獸！仲差一次（第日再打）` : r.ev === 'new' ? `👾 一隻錯題怪獸走咗出嚟！之後打敗佢` : r.ev === 'heal' ? `👾 怪獸回復咗體力！` : '';
   const ans = qAnswerText(q);
   fb.className = ok ? 'good' : 'bad';
   fb.innerHTML = `<div class="fh">${ok ? '🎉 ' + pickOne(PRAISE) + (gain ? `<span style="margin-left:auto;font-size:18px">+${gain}🪙</span>` : '') : '💡 差少少！'}</div>
-    ${ok ? '' : `<div class="fa">正確答案：${rt(ans)} <button class="spk" data-act="sayans" style="display:inline-block;margin-left:4px">🔊</button></div>`}
-    ${!ok && q.e ? `<div class="fe">${rt(q.e)}</div>` : ''}
+    ${ok ? '' : `<div class="fa rb">正確答案：${rt(ans)} <button class="spk" data-act="sayans" style="display:inline-block;margin-left:4px">🔊</button></div>`}
+    ${!ok && q.e ? `<div class="fe rb">${rt(q.e)}</div>` : ''}
     ${ev ? `<div class="fx">${ev}</div>` : ''}
     <div class="row"><button class="btn gold" data-act="explain">💡 解釋</button><button class="btn ${ok ? 'ok' : 'pur'}" data-act="next">${last ? '🏁 結果' : '下一題 →'}</button></div>`;
   requestAnimationFrame(() => fb.classList.add('show'));
@@ -1178,9 +1356,9 @@ function finish(){
     res.bonus = Math.round(res.score / 5);
     if(res.score >= 85 && !S.team.psy){ S.team.psy = {lv:5, xp:0, nick:'', got:today()}; res.legend = true; }
   }
-  if(R.mode === 'smart' || R.mode === 'rand' || R.mode === 'monster') res.bonus = acc >= 0.8 ? 10 : 5;
+  if(R.mode === 'smart' || R.mode === 'rand' || R.mode === 'monster' || R.mode === 'exam') res.bonus = acc >= 0.8 ? 10 : 5;
   S.coins += res.bonus; R.coins += res.bonus;
-  const m = partner(), st0 = stageOf(m.lv);
+  const m = partner(), st0 = stageOf(m.lv); res.oldLv = m.lv;
   m.xp += R.xp;
   while(m.xp >= need(m.lv)){ m.xp -= need(m.lv); m.lv++; res.ups++; }
   res.evo = stageOf(m.lv) !== st0;
@@ -1204,8 +1382,8 @@ SCREENS.result = () => {
     <div class="card">
       <div class="stat"><span>答對</span><b>${R.ok} / ${n}</b></div>
       <div class="stat"><span>最高連擊</span><b>🔥 ${R.maxCombo}</b></div>
-      <div class="stat"><span>獎勵</span><b>🪙 +${R.coins}</b></div>
-      <div class="stat"><span>經驗值</span><b>+${R.xp}</b></div>
+      <div class="stat"><span>獎勵</span><b>🪙 +<span data-count="${R.coins}">0</span></b></div>
+      <div class="stat"><span>經驗值</span><b>+<span data-count="${R.xp}">0</span></b></div>
       ${R.kills ? `<div class="stat"><span>打敗怪獸</span><b>💥 ${R.kills}</b></div>` : ''}
       ${R.newMon ? `<div class="stat"><span>新怪獸</span><b>👾 ${R.newMon}</b></div>` : ''}
     </div>
@@ -1219,12 +1397,21 @@ SCREENS.result = () => {
       ${R.mode === 'level' ? `<button class="btn" data-act="isle" data-sk="${R.meta.sk}">🗺️ 下一關</button>` : `<button class="btn" data-act="go" data-to="home">🏠 返主頁</button>`}</div></div>`;
 };
 AFTER.result = () => {
-  const r = R.res;
-  if(r.evo || r.caught || r.legend || r.stars === 3 || (R.mode === 'test' && r.score >= 85)){ confetti(80); SFX.win(); }
-  else if(r.ups || r.stars) SFX.up();
-  if(r.legend) setTimeout(() => speak('傳說星獸出現了！'), 600);
-  else if(r.caught) setTimeout(() => speak(`收服了${SPECIES[r.caught].name[R.foe.st]}！`), 600);
-  else if(r.evo) setTimeout(() => speak(`進化了！變成${crName(S.partner)}！`), 600);
+  const r = R.res, m = partner();
+  document.querySelectorAll('[data-count]').forEach(el => FX.countUp(el, +el.dataset.count, 900));
+  const stars = [...document.querySelectorAll('.bigstars span.on')];
+  stars.forEach((el, i) => setTimeout(() => { const c = el.getBoundingClientRect(); SFX.star(i); FX.burst(c.left + c.width/2, c.top + c.height/2, {n:10, max:70}); }, 250 + i*250));
+  const big = r.evo || r.caught || r.legend || r.stars === 3 || (R.mode === 'test' && r.score >= 85);
+  const queue = [];
+  if(r.caught) queue.push(cb => FX.capture(crSVG(r.caught, S.team[r.caught].lv), `🎉 收服咗 ${SPECIES[r.caught].name[R.foe.st]}！`, SPECIES[r.caught].orb, cb));
+  if(r.legend) queue.push(cb => FX.legend(crSVG('psy', S.team.psy.lv), '🌌 傳說星獸「星靈貓」加入咗你嘅隊伍！', cb));
+  if(r.evo) queue.push(cb => FX.evolve(crSVG(S.partner, r.oldLv), crSVG(S.partner, m.lv), `✨ 進化咗！變成${crName(S.partner)}！`, cb));
+  const run = () => { const f = queue.shift(); if(f) f(run); };
+  setTimeout(() => {
+    if(big){ confetti(80); if(!queue.length) SFX.win(); } else if(r.ups || r.stars) SFX.up();
+    run();
+    if(!FX.rich()){ if(r.legend) speak('傳說星獸出現了！'); else if(r.caught) speak(`收服了${SPECIES[r.caught].name[R.foe.st]}！`); else if(r.evo) speak(`進化了！變成${crName(S.partner)}！`); }
+  }, 250 + stars.length * 250);
 };
 
 /* ========== 揀題 ========== */
@@ -1232,7 +1419,7 @@ function testSubj(){ return subjHasQs(S.subj) ? S.subj : 'chi'; }
 function weightedPick(n, opts){
   opts = opts || {};
   const w = weakest(), t = today(), out = [], used = new Set();
-  const inSubj = q => !opts.subj || (SK[q.sk] && SK[q.sk].subj === opts.subj);
+  const inSubj = q => (!opts.subj || (SK[q.sk] && SK[q.sk].subj === opts.subj)) && (!opts.exam || (SK[q.sk] && SK[q.sk].exam));
   if(!opts.noMon) shuffle(monReady()).filter(id => inSubj(QMAP[id])).slice(0, 3).forEach(id => { out.push(QMAP[id]); used.add(id); });
   const pool = QS.filter(q => !used.has(q.id) && inSubj(q) && (!opts.noMatch || q.t !== 'match'));
   const score = q => {
@@ -1241,6 +1428,7 @@ function weightedPick(n, opts){
     if(q.sk === w) x += 2;
     if(!s) x += 1.2; else { x += s.w * 1.5 - s.c * 0.3; if(s.last === t) x *= 0.3; }
     if(q.t === 'match') x *= 0.5;
+    if(opts.examBias && SK[q.sk] && SK[q.sk].exam) x *= 3;
     return Math.max(0.1, x);
   };
   const cand = pool.map(q => ({q, w:score(q)}));
@@ -1304,7 +1492,9 @@ SCREENS.parent = () => {
     <label class="fld">小朋友名字<input id="setnm" maxlength="8" value="${esc(S.name)}"></label>
     <label class="fld">夥伴星獸名字（留空用原本名）<input id="setpn" maxlength="8" value="${esc(partner().nick || '')}"></label>
     <button class="btn gray" data-act="savenm" style="margin-bottom:10px">儲存名字</button>
-    <div class="sw">音效<button class="tog ${S.set.sfx ? 'on' : ''}" data-act="tog" data-k="sfx"></button></div></div>
+    <div class="sw">音效<button class="tog ${S.set.sfx ? 'on' : ''}" data-act="tog" data-k="sfx"></button></div>
+    <div class="sw">背景音樂（讀字時自動變細聲）<button class="tog ${S.set.bgm ? 'on' : ''}" data-act="tog" data-k="bgm"></button></div>
+    <div class="sw">華麗特效（舊手機卡就關）<button class="tog ${S.set.fx ? 'on' : ''}" data-act="tog" data-k="fx"></button></div></div>
   <div class="card"><h3>💾 備份</h3><div class="small muted" style="margin-bottom:8px">紀錄存喺呢部機。換機或者清 Safari 資料之前先匯出。</div>
     <div class="row"><button class="btn gray" data-act="export">⬇️ 匯出</button><button class="btn gray" data-act="import">⬆️ 匯入</button></div>
     <div style="height:12px"></div><button class="btn gray" data-act="reset" style="color:var(--bad-d)">🗑️ 清除全部紀錄</button></div>
@@ -1315,13 +1505,24 @@ SCREENS.parent = () => {
 const ACT = {
   go(b){ SFX.tap(); if(b.dataset.to === 'map'){ S.tut.map = 1; save(); } show(b.dataset.to); },
   pet(b){ SFX.tap(); const p = b.closest('.pet'); p.classList.remove('bounce'); void p.offsetWidth; p.classList.add('bounce'); const bub = $('#bub'); if(bub) bub.innerHTML = rt(petLine()); },
-  rc(b){ speak(b.textContent); b.classList.add('rd'); setTimeout(() => b.classList.remove('rd'), 600); },
+  rc(b){ speakFrom(b); FX.pop(b); },
+  ptk(b){ if(R.ans) return; const k = +b.dataset.k; if(R.pk.has(k)){ R.pk.delete(k); b.classList.remove('on2'); } else { R.pk.add(k); b.classList.add('on2'); SFX.pop(); } },
+  pkchk(){
+    if(R.ans) return;
+    const q = R.list[R.i], want = new Set(q.a);
+    const ok = want.size === R.pk.size && [...want].every(k => R.pk.has(k));
+    R.picked = R.pk.size ? '你揀咗：' + [...R.pk].sort((a, b) => a - b).map(k => q.w[k]).join('、') : '你冇揀';
+    document.querySelectorAll('.ptk').forEach(b => { const k = +b.dataset.k; b.classList.add(want.has(k) ? 'good' : R.pk.has(k) ? 'bad' : 'dim'); });
+    answer(ok, $('#pks'));
+  },
+  bgm(b){ S.set.bgm = !S.set.bgm; save(); applyFx(); if(S.set.bgm) FX.ensure(); b.textContent = S.set.bgm ? '🎵' : '🔇'; },
+  exam(){ SFX.tap(); startSession('exam', weightedPick(12, {noMatch:false, exam:true}), {}); },
   pickpet(b){ SFX.tap(); curPick.name = $('#nm').value; curPick.nick = $('#pn').value; curPick.sp = b.dataset.k; show('welcome'); speak(SPECIES[b.dataset.k].name[0]); },
   start(){
     if(!curPick.sp) return;
     S.name = $('#nm').value.trim(); S.team = {[curPick.sp]: {lv:1, xp:0, nick:$('#pn').value.trim(), got:today()}}; S.partner = curPick.sp;
     // 之前工作紙錯咗嘅題目，一開始就變成怪獸
-    QS.filter(q => q.seed).forEach(q => { S.mon[q.id] = {hp:2, e:pickOne(MONS), born:today(), hit:''}; });
+    seedMonsters();
     save(true); SFX.up(); show('home'); confetti(50);
     setTimeout(() => { const b = $('#bub'); if(b) b.innerHTML = rt(`嘩！有 ${monCount()} 隻怪獸由你以前嘅工作紙走咗出嚟！`); }, 300);
   },
@@ -1331,18 +1532,18 @@ const ACT = {
   level(b){ SFX.tap(); const sk = b.dataset.sk, i = +b.dataset.i; startSession('level', shuffle(levelsOf(sk)[i]), {sk, lv:i}); },
   randisle(b){ SFX.tap(); const sk = b.dataset.sk; startSession('rand', shuffle(skillQs(sk)).slice(0, sk === 'match' ? 3 : 8), {sk}); },
   smart(){ SFX.tap(); startSession('smart', weightedPick(10)); },
-  test(){ SFX.tap(); const sj = testSubj(); startSession('test', weightedPick(15, {noMon:true, noMatch:true, subj:sj}), {subj:sj}); },
+  test(){ SFX.tap(); const sj = testSubj(); startSession('test', weightedPick(15, {noMon:true, noMatch:true, subj:sj, examBias:true}), {subj:sj}); },
   fight(){ SFX.tap(); startSession('monster', shuffle(monReady()).slice(0, 8).map(id => QMAP[id])); },
   setpartner(b){ SFX.tap(); S.partner = b.dataset.k; save(); show('dex'); toast(`⭐ ${crName(S.partner)} 而家係你嘅夥伴！`); speak(crName(S.partner)); },
   quit(){ if(confirm('要離開嗎？今次嘅進度唔會計星星。')){ hideFb(); show('home'); } },
-  speak(){ const q = R.list[R.i]; speak(qSpeak(q), qLang(q)); },
-  sayo(b){ speak(b.dataset.t, qLang(R.list[R.i])); },
-  sayans(){ const q = R.list[R.i]; speak('正確答案係：' + qAnswerText(q), qLang(q)); },
+  speak(){ const q = R.list[R.i], el = q.t === 'typo' ? null : document.querySelector('#qbody .rb'); if(el) speakBlock(el, qLang(q)); else speak(qSpeak(q), qLang(q)); },
+  sayo(b){ speakBlock(b.closest('.opt').querySelector('.ot'), qLang(R.list[R.i])); },
+  sayans(){ speakBlock($('#fb .fa'), qLang(R.list[R.i])); },
   explain(){ openExplain(R.list[R.i], R.picked); },
   exr(b){ const x = R.results[+b.dataset.k]; if(x && QMAP[x.id]) openExplain(QMAP[x.id], x.picked); },
   exq(b){ const q = QMAP[b.dataset.id]; if(q) openExplain(q, ''); },
   exclose(){ closeEx(); },
-  exspeak(){ speak(explainSpeech(), EXQ ? qLang(EXQ.q) : ''); },
+  exspeak(){ speakSeq([...document.querySelectorAll('#exbody .exq, #exbody .exs')], EXQ ? qLang(EXQ.q) : ''); },
   next(){ hideFb(); closeEx(); if(!R) return; R.i++; if(R.i >= R.list.length) finish(); else show('quiz'); },
   mc(b){
     if(R.ans) return;
@@ -1415,7 +1616,7 @@ const ACT = {
   chest(){
     if(S.tasks.chest) return;
     if(!S.tasks.list.every(t => t.got)){ SFX.bad(); toast('完成並領取全部任務先開到寶箱'); return; }
-    const c = 30 + rnd(51); S.tasks.chest = true; S.coins += c; save(); SFX.win(); confetti(70); show('tasks'); toast(`🎁 寶箱有 ${c} 個金幣！`, 3000);
+    const c = 30 + rnd(51); S.tasks.chest = true; S.coins += c; save(); SFX.chest(); confetti(70); show('tasks'); toast(`🎁 寶箱有 ${c} 個金幣！`, 3000);
   },
   stab(b){ SFX.tap(); shopTab = b.dataset.k; show('shop'); },
   item(b){
@@ -1429,7 +1630,7 @@ const ACT = {
     else S.acc[it.type] = S.acc[it.type] === it.id ? '' : it.id;
     save(); show('shop');
   },
-  tog(b){ const k = b.dataset.k; S.set[k] = !S.set[k]; b.classList.toggle('on', S.set[k]); save(); },
+  tog(b){ const k = b.dataset.k; S.set[k] = !S.set[k]; b.classList.toggle('on', S.set[k]); save(); applyFx(); },
   rate(b){ S.set.rate = +b.dataset.v; save(); show('parent'); speak('呢個係新嘅語速'); },
   testvoice(){ speak('你好！我係溫習樂園，一齊溫書啦！'); setTimeout(() => { if(cur === 'parent') show('parent'); }, 1500); },
   savenm(){ S.name = $('#setnm').value.trim(); partner().nick = $('#setpn').value.trim(); save(); toast('已儲存'); },
